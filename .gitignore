@@ -12,3 +12,4 @@ __pycache__/
 *.swp
 .venv/
 node_modules/
+draft-*.md

@@ -7,7 +7,7 @@ Flags and room answers are redacted on purpose.
 
 | Room | Category | Difficulty | Date | Writeup |
 |---|---|---|---|---|
-| ELF Reverse | Reverse Engineering | Easy | 2026-11-04 | [elf-reverse](elf-reverse/README.md) |
+| [Reverse Files](https://tryhackme.com/room/reverselfiles) | Reverse Engineering | Easy | 2026-11-04 | [elf-reverse](elf-reverse/README.md) |
 
 ## Tools I use
 
