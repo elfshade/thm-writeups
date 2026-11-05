@@ -59,7 +59,7 @@ inside `main` costs nothing to find — no need to run the binary at all.
 **How:**
 
 ```bash
-./crackme2 <password>
+./crackme2 <password>    # or paste it at the prompt
 ```
 
 ![crackme2 accepting the password and printing the flag](img/flag2.png)
@@ -88,7 +88,8 @@ decoding is a one-liner.
 echo '<base64 string>' | base64 -d
 ```
 
-**Result:** the decoded output is the flag.
+The encoded string is left out here so the answer stays redacted; decoding it
+prints the flag directly.
 
 ![Decoded Base64 output = flag](img/flag3.png)
 
@@ -100,7 +101,8 @@ echo '<base64 string>' | base64 -d
 
 **Observation**
 
-Reading the binary statically was slower than watching it run, so I used gdb.
+I wanted to watch the comparison happen instead of reading the whole binary
+statically, so I used gdb.
 
 **How:**
 
@@ -149,8 +151,19 @@ the flag.
 
 **Observation**
 
-IDA shows the string hidden inside `main`. To confirm it at runtime I traced
-the library calls while feeding the program dummy input.
+The hidden string is used inside `main`: the program compares it against the
+input, so it is not buried in a helper function.
+
+**Reasoning**
+
+That gives two independent ways to recover it:
+
+- **Static** — decompile `main` in IDA; the expected string is right there
+  next to the comparison.
+- **Dynamic** — run the program under `ltrace` and let it log the library
+  calls; the string appears among the `strcmp`/`printf` arguments.
+
+I did both, so the static reading is confirmed by the runtime trace.
 
 **How:**
 
@@ -159,9 +172,9 @@ ltrace ./crackme5
 # input: xx
 ```
 
-**Result:** the secret string appears in the trace output.
+**Result:** the trace contains the same string IDA showed in `main`.
 
-![ltrace output revealing the secret string](img/flag5.png)
+![ltrace output revealing the hidden string](img/flag5.png)
 
 **Answer:** `THM{redacted}`
 
@@ -173,7 +186,7 @@ ltrace ./crackme5
 
 Inside IDA, the function `my_secure_test` contains eight character comparisons against the input.
 
-![Eight character comparisons inside my_secure_test](img/secret_test.png)
+![Eight character comparisons inside my_secure_test](img/my_secure_test.png)
 
 **Reasoning**
 

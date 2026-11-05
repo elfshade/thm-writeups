@@ -11,4 +11,4 @@ Flags and room answers are redacted on purpose.
 
 ## Tools I use
 
-`file` · `checksec` · `strings` · `objdump` · Ghidra · gdb + pwndbg · radare2
+`file` · `checksec` · `strings` · `objdump` · IDA Pro · Ghidra · gdb + pwndbg · ltrace · radare2
