@@ -8,6 +8,7 @@ Flags and room answers are redacted on purpose.
 | Room | Category | Difficulty | Date | Writeup |
 |---|---|---|---|---|
 | [Reverse Files](https://tryhackme.com/room/reverselfiles) | Reverse Engineering | Easy | 2026-11-04 | [reversing-elf](reversing-elf/README.md) |
+| [0x41haz](https://tryhackme.com/room/0x41haz) | Reverse Engineering | Easy | 2026-11-05 | [0x41haz](0x41haz/README.md) |
 
 ## Tools I use
 
