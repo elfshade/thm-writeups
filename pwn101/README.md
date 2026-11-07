@@ -12,7 +12,7 @@ subfolder with a writeup and exploit script.
 | # | Challenge | Technique | Status |
 |---|---|---|---|
 | 1 | [pwn101](pwn101/README.md) | Stack Variable Overwrite | Done |
-| 2 | [pwn102](pwn102/README.md) | <!-- --> | WIP |
+| 2 | [pwn102](pwn102/README.md) | Multi-Variable Overwrite | Done |
 | 3 | [pwn103](pwn103/README.md) | <!-- --> | WIP |
 | 4 | [pwn104](pwn104/README.md) | <!-- --> | WIP |
 | 5 | [pwn105](pwn105/README.md) | <!-- --> | WIP |
