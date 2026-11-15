@@ -15,7 +15,7 @@ subfolder with a writeup and exploit script.
 | 2 | [pwn102](pwn102/README.md) | Multi-Variable Overwrite | Done |
 | 3 | [pwn103](pwn103/README.md) | ret2win & 16-byte Stack Alignment | Done |
 | 4 | [pwn104](pwn104/README.md) | Stack Buffer Overflow & Shellcode on Executable Stack (NX Disabled) | Done |
-| 5 | [pwn105](pwn105/README.md) | <!-- --> | WIP |
+| 5 | [pwn105](pwn105/README.md) | Signed 32-bit Integer Overflow to Spawn Shell | Done |
 | 6 | [pwn106](pwn106/README.md) | <!-- --> | WIP |
 | 7 | [pwn107](pwn107/README.md) | <!-- --> | WIP |
 | 8 | [pwn108](pwn108/README.md) | <!-- --> | WIP |
