@@ -225,6 +225,6 @@ THM{redacted}
 
 ## Key Takeaways & Lessons
 
-1. **Exploiting Executable Stack (NX Disabled):** Khi stack có quyền thực thi (`rwxp`), ta không cần ROP chain hay ret2libc phức tạp: ta hoàn toàn có thể tận dụng để viết shellcode trực tiếp lên stack rồi nhảy về đó thực thi (`ret2stack`).
-2. **Bypass ASLR nhờ Information Disclosure:** Dù ASLR đang bật trên toàn hệ thống, việc chương trình để lộ địa chỉ stack (`I'm waiting for you at %p`) đã hóa giải ASLR hoàn toàn. Độ lệch từ địa chỉ leak đến buffer bằng 0, cho phép tính toán chính xác đích nhảy cho `saved RIP`.
-3. **NOP Sled & Shellcode Alignment:** Sử dụng NOP sled (`\x90`) giúp tăng độ ổn định của payload. Đặt shellcode ngay đầu buffer và lấp đầy khoảng cách còn lại tới `saved RIP` bằng các byte `\x90` đảm bảo không làm hỏng payload và CPU thực thi shellcode ngay từ instruction đầu tiên.
+1. **Exploiting Executable Stack (NX Disabled):** When the stack is marked executable (`rwxp`), there is no need for complex ROP chains or ret2libc techniques. We can directly leverage the stack buffer to store custom machine code and redirect control flow to execute it (`ret2stack`).
+2. **Defeating ASLR via Information Disclosure:** Even with system-wide ASLR enabled, the program leaking its stack buffer address (`I'm waiting for you at %p`) completely neutralizes ASLR. Because the displacement between the leak and our buffer is zero, we can calculate the exact target landing address for `saved RIP` reliably.
+3. **NOP Sled & Shellcode Alignment:** Using a NOP sled (`\x90`) enhances payload stability. Placing the shellcode at the very beginning of the buffer and filling the remaining offset space up to `saved RIP` with `\x90` bytes prevents memory corruption and ensures the CPU begins executing the shellcode cleanly from the first instruction.

